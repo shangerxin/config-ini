@@ -18,8 +18,10 @@ parser.parse(iniContent);
 var value = parser.get("section", "option");
 
 # APIs 
+```
 //return parser itself
-.addSection(sectionName);          
+
+.addSection(sectionName); 
  
 //return the option value 
 .get(sectionName, optionName) ; 
@@ -59,3 +61,4 @@ var value = parser.get("section", "option");
 
 //parse a ini content 
 .parse(iniContent); 
+```
