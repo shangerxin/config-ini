@@ -3,8 +3,8 @@
 JavaScript Configuration file(.ini) content parser, similar to python ConfigParser without I/O operations
 
 - created by Erxin,Shang(Edwin)
-    + Git repo:https://github.com/shangerxin/config-ini
-    + Author homepage: http://www.shangerxin.com
+    + Git repo:[https://github.com/shangerxin/config-ini](https://github.com/shangerxin/config-ini)
+    + Author homepage: [ http://www.shangerxin.com](http://www.shangerxin.com)
     + Version, 1.0.0
 
 # Install
@@ -15,7 +15,7 @@ or
 $ bower install config-ini 
 
 # Simple example ini content
-- If there is no option supplied for the option a default section will be used,for more detail please check https://en.wikipedia.org/wiki/INI_file
+- If there is no section supplied for the options then a default section will be used
 ```
 optionName0=value0
 optionName2=value2
@@ -30,6 +30,7 @@ optionName1=value1
 optoinName2=value2
 ...
 ```
+- More about ini format could be found at [https://en.wikipedia.org/wiki/INI_file](https://en.wikipedia.org/wiki/INI_file)
 
 # Use cases
 - For node
