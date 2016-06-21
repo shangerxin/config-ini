@@ -1,5 +1,5 @@
 {
-  "name": "config-ini",
+  "name": "config-ini-parser",
   "version": "1.0.0",
   "description": "JavaScript Configuration file(.ini) content parser, similar to python ConfigParser without I/O operations",
   "main": "config-ini.js",
