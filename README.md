@@ -20,7 +20,6 @@ var value = parser.get("section", "option");
 # APIs 
 ```
 //return parser itself
-
 .addSection(sectionName); 
  
 //return the option value 
