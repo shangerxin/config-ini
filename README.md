@@ -19,7 +19,7 @@ parser.parse(iniContent);
 var value = parser.get("section", "option");
 ```
 
-- in browser, add config-ini.js to html by <script> tag
+- in browser, add config-ini.js to html by script tag
 ```
 var delimiter = "\r\n"; //or "\n" for *nux
 
