@@ -1,5 +1,10 @@
 # config-ini
+- description
 JavaScript Configuration file(.ini) content parser, similar to python ConfigParser without I/O operations
+- created by Erxin,Shang(Edwin)
+Git repo:https://github.com/shangerxin/config-ini
+Author homepage: http://www.shangerxin.com
+Version, 1.0.0
 
 # install 
 $ npm install config-ini-parser
@@ -7,6 +12,20 @@ $ npm install config-ini-parser
 or 
 
 $ bower install config-ini 
+
+# simple ini file content, there is no option supplied for the option a default section will be used,for more detail please check https://en.wikipedia.org/wiki/INI_file
+optionName0=value0
+optionName2=value2
+
+[sectionName0]
+optionName0=value0
+optionName1=value1
+...
+[sectionName1]
+optionName0=value0
+optionName1=value1
+optoinName2=value2
+...
 
 # use
 - in node
@@ -72,3 +91,6 @@ var value = parser.get("section", "option");
 //parse a ini content 
 .parse(iniContent); 
 ```
+
+# license
+GPL-3.0

@@ -1,5 +1,10 @@
 /**
- * Created by shange on 6/21/2016.
+ * Created by Erxin, Shang(Edwin) on 6/21/2016.
+ * JavaScript Configuration file(.ini) content parser, similar to python ConfigParser without I/O operations
+ * The license is under GPL-3.0
+ * Git repo:https://github.com/shangerxin/config-ini
+ * Author homepage: http://www.shangerxin.com
+ * Version, 1.0.0
  */
 
 (function (exports) {
