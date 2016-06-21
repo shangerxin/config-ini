@@ -10,12 +10,14 @@ $ bower install config-ini
 
 # use
 - in node
+```
 var ConfigIniParser = require("config-ini").ConfigIniParser;
 var delimiter = "\r\n"; //or "\n" for *nux
 
 parser = new ConfigIniParser(delimiter);
 parser.parse(iniContent);
 var value = parser.get("section", "option");
+```
 
 # APIs 
 ```
