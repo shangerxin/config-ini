@@ -2,7 +2,7 @@
 JavaScript Configuration file(.ini) content parser, similar to python ConfigParser without I/O operations
 
 # install 
-$ npm install config-ini 
+$ npm install config-ini-parser
 
 or 
 
