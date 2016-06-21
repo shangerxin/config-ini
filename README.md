@@ -1,11 +1,11 @@
-# config-ini
+# Introduction for config-ini
 - description
 JavaScript Configuration file(.ini) content parser, similar to python ConfigParser without I/O operations
 
 - created by Erxin,Shang(Edwin)
-Git repo:https://github.com/shangerxin/config-ini
-Author homepage: http://www.shangerxin.com
-Version, 1.0.0
+    + Git repo:https://github.com/shangerxin/config-ini
+    + Author homepage: http://www.shangerxin.com
+    + Version, 1.0.0
 
 # Install
 $ npm install config-ini-parser
