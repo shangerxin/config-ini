@@ -1,0 +1,27 @@
+{
+  "name": "config-ini",
+  "version": "1.0.0",
+  "description": "JavaScript Configuration file(.ini) content parser, similar to python ConfigParser without I/O operations",
+  "main": "config-ini.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shangerxin/config-ini.git"
+  },
+  "keywords": [
+    "config",
+    "ini"
+  ],
+  "author": "Erxin,Shang (Edwin)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/shangerxin/config-ini/issues"
+  },
+  "homepage": "https://github.com/shangerxin/config-ini#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3"
+  }
+}

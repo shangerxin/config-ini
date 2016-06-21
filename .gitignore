@@ -1,0 +1,7 @@
+node_modules
+dist
+dist/bower_components
+test/
+.idea/
+.idea/*.*
+package

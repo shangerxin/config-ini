@@ -1,0 +1,22 @@
+{
+  "name": "config-ini",
+  "description": "JavaScript Configuration file(.ini) content parser, similar to python ConfigParser without I/O operations",
+  "main": "config-ini.js",
+  "authors": [
+    "Erxin",
+    "Shang (Edwin)"
+  ],
+  "license": "GPL-3.0",
+  "keywords": [
+    "config",
+    "ini"
+  ],
+  "homepage": "https://github.com/shangerxin/config-ini",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
