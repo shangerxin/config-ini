@@ -7,14 +7,15 @@ Git repo:https://github.com/shangerxin/config-ini
 Author homepage: http://www.shangerxin.com
 Version, 1.0.0
 
-# install 
+# Install
 $ npm install config-ini-parser
 
 or 
 
 $ bower install config-ini 
 
-# simple ini file content, there is no option supplied for the option a default section will be used,for more detail please check https://en.wikipedia.org/wiki/INI_file
+# Simple example ini content
+- If there is no option supplied for the option a default section will be used,for more detail please check https://en.wikipedia.org/wiki/INI_file
 ```
 optionName0=value0
 optionName2=value2
@@ -30,8 +31,8 @@ optoinName2=value2
 ...
 ```
 
-# use
-- in node
+# Use cases
+- For node
 ```
 var ConfigIniParser = require("config-ini").ConfigIniParser;
 var delimiter = "\r\n"; //or "\n" for *nux
@@ -41,7 +42,7 @@ parser.parse(iniContent);
 var value = parser.get("section", "option");
 ```
 
-- in browser, add config-ini.js to html by script tag
+- For browser, add config-ini.js to html by script tag
 ```
 var delimiter = "\r\n"; //or "\n" for *nux
 
