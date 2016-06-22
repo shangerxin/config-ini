@@ -35,10 +35,10 @@ optionName2=value2
 # Use cases
 - For node
 ```
-var ConfigIniParser = require("config-ini").ConfigIniParser;
+var ConfigIniParser = require("config-ini-parser").ConfigIniParser;
 var delimiter = "\r\n"; //or "\n" for *nux
 
-parser = new ConfigIniParser(delimiter);
+parser = new ConfigIniParser(delimiter); //If don't assign the parameter delimiter then the default value \n will be used
 parser.parse(iniContent);
 var value = parser.get("section", "option");
 parser.stringify('\n'); //get all the ini file content as a string
@@ -48,7 +48,7 @@ parser.stringify('\n'); //get all the ini file content as a string
 ```
 var delimiter = "\r\n"; //or "\n" for *nux. by default it will use \n
 
-parser = new ConfigIniParser(delimiter);
+parser = new ConfigIniParser(delimiter); //If don't assign the parameter delimiter then the default value \n will be used
 parser.parse(iniContent);
 var value = parser.get("section", "option");
 ```
