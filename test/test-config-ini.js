@@ -63,6 +63,7 @@ describe("test-config-ini suite", function(){
     it("get", function(){
         expect(parser.get("database", "user")).to.be.equal("dbuser");
         expect(parser.get(null, "scope")).to.be.equal("global");
+        expect(parser.get("unexist", "unexist", "default")).to.be.equal("default");
     });
 
     it("set", function(){

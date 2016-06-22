@@ -62,7 +62,7 @@ ConfigIniParser([delimiter]);
 .addSection(sectionName); 
  
 //return the option value 
-.get(sectionName, optionName) ; 
+.get(sectionName, optionName, [defaultValue]) ;
 
 //return boolean 
 .getBoolean(sectionName, optionName); 

@@ -159,9 +159,10 @@
      * Get a specify option value
      * @sectionName, string
      * @optionName, string
+     * @defaultValue, use the default value if the option is not exist
      * @return, the string value of the option
      */
-    ConfigIniParser.prototype.get = function (sectionName, optionName) {
+    ConfigIniParser.prototype.get = function (sectionName, optionName, defaultValue) {
         var section = _findSection(this._ini, sectionName ? sectionName : DEFAULT_SECTION);
         if (section) {
             var option = _findOption(section, optionName);
@@ -170,7 +171,12 @@
             }
         }
 
-        throw errorNoOption;
+        if(defaultValue){
+            return defaultValue;
+        }
+        else{
+            throw errorNoOption;
+        }
     };
 
     /*
