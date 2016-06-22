@@ -1,11 +1,16 @@
 /**
- * Created by shange on 6/21/2016.
+ * Created by Erxin, Shang(Edwin) on 6/21/2016.
+ * JavaScript Configuration file(.ini) content parser, similar to python ConfigParser without I/O operations
+ * The license is under GPL-3.0
+ * Git repo:https://github.com/shangerxin/config-ini
+ * Author homepage: http://www.shangerxin.com
+ * Version, 1.1.1
  */
 var ConfigIniParser = require("../config-ini").ConfigIniParser;
 var expect = require("chai").expect;
 
 describe("test-config-ini suite", function(){
-    var delimiter = "\r\n";
+    var CRLF = "\r\n";
     var iniContent = [
     "; this comment is being ignored",
     "scope = global",
@@ -20,11 +25,11 @@ describe("test-config-ini suite", function(){
     "p0 = first value",
     "p1 = false",
     "p2 = 13.5"
-    ].join(delimiter);
+    ].join(CRLF);
     var parser;
 
     beforeEach(function(){
-        parser = new ConfigIniParser(delimiter);
+        parser = new ConfigIniParser();
         parser.parse(iniContent);
     });
 
@@ -50,9 +55,9 @@ describe("test-config-ini suite", function(){
             "p1 = false",
             "p2 = 13.5",
             ""
-        ].join(delimiter).replace(/\s+=\s+/g, "=");
+        ].join(CRLF).replace(/\s+=\s+/g, "=");
 
-        expect(parser.stringify()).to.be.equal(expectIniContent);
+        expect(parser.stringify(CRLF)).to.be.equal(expectIniContent);
     });
 
     it("get", function(){
