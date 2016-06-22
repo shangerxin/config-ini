@@ -12,6 +12,7 @@
     "ini"
   ],
   "homepage": "https://github.com/shangerxin/config-ini",
+  "repository": "shangerxin/config-ini",
   "ignore": [
     "**/.*",
     "node_modules",
