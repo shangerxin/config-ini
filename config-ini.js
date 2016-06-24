@@ -37,7 +37,7 @@
     var _sectionRegex      = /\s*\[(\S+)\]\s*/;
     var _optionRegex       = /\s*(\S+)\s*[=:]\s*(.*)\s*/;
     var _commentRegex      = /\s*[#;].*/;
-    var _emptyRegex        = /\s*/;
+    var _emptyRegex        = /^\s*$/;
     var SECTION_NAME_INDEX = 1;
     var OPTION_NAME_INDEX  = 1;
     var OPTION_VALUE_INDEX = 2;
@@ -103,14 +103,14 @@
     }
 
     /*
-     Create a ini file parser, the format of ini file could be found at
-     https://en.wikipedia.org/wiki/INI_file
-
-     Duplicated sections will cause exception, duplicated options will be
-     ignored and only the first one will take effect.
-
-     @delimiter, the line delimiter which is used to separate the lines
-     @return a ConfigIniParser object
+     * Create a ini file parser, the format of ini file could be found at
+     * https://en.wikipedia.org/wiki/INI_file
+     *
+     * Duplicated sections will cause exception, duplicated options will be
+     * ignored and only the first one will take effect.
+     *
+     * @delimiter, the line delimiter which is used to separate the lines
+     * @return a ConfigIniParser object
      */
     var ConfigIniParser = function (delimiter) {
         this.delimiter = delimiter? delimiter:DEFAULT_DELIMITER;
@@ -139,10 +139,10 @@
     };
 
     /*
-     Create a new section, if the section is already contain in the structure then
-     a duplicated section exception will be thrown
-     @sectionName, a string
-     @return, the created section object
+     * Create a new section, if the section is already contain in the structure then
+     * a duplicated section exception will be thrown
+     * @sectionName, a string
+     * @return, the created section object
      */
     ConfigIniParser.prototype.addSection = function (sectionName) {
         if (_findSection(this._ini, sectionName)) {
@@ -180,10 +180,10 @@
     };
 
     /*
-     Convert the option value to boolean, if the value is a number then return true if it is
-     not equal to 0; if the value is string and which value is "true"/"false" then will be converted
-     to bool, return true if it is "true"; 
-     @return, boolean
+     * Convert the option value to boolean, if the value is a number then return true if it is
+     * not equal to 0; if the value is string and which value is "true"/"false" then will be converted
+     * to bool, return true if it is "true";
+     * @return, boolean
      */
     ConfigIniParser.prototype.getBoolean = function (sectionName, optionName) {
         var value = this.get(sectionName ? sectionName : DEFAULT_SECTION, optionName);
@@ -268,12 +268,12 @@
     };
 
     /*
-     Remove the specify option from the section if the option exist then remove it
-     and return true else return false
-
-     @sectionName, string
-     @optionName, string
-     @return, boolean
+     * Remove the specify option from the section if the option exist then remove it
+     * and return true else return false
+     *
+     * @sectionName, string
+     * @optionName, string
+     * @return, boolean
      */
     ConfigIniParser.prototype.removeOption = function (sectionName, optionName) {
         var section = _findSection(this._ini, sectionName ? sectionName : DEFAULT_SECTION);
@@ -289,11 +289,11 @@
     };
 
     /*
-     Remove the specify section if the section exist then remove it
-     and return true else return false
-
-     @sectionName, string
-     @return, boolean
+     * Remove the specify section if the section exist then remove it
+     * and return true else return false
+     *
+     * @sectionName, string
+     * @return, boolean
      */
     ConfigIniParser.prototype.removeSection = function (sectionName) {
         var sectionIndex = _findSectionIndex(this._ini, sectionName);
@@ -352,10 +352,10 @@
     };
 
     /*
-     Convert the configuration content to strings the line will the separate with the
-     given line delimiter. A empty line will be added between each section
-
-     @return, the content of configuration
+     * Convert the configuration content to strings the line will the separate with the
+     * given line delimiter. A empty line will be added between each section
+     *
+     * @return, the content of configuration
      */
     ConfigIniParser.prototype.stringify = function (delimiter) {
         var lines    = [];
@@ -390,7 +390,7 @@
 
         for (var i = 0; i < lines.length; i++) {
             var line = lines[i];
-            if (line.match(_commentRegex)) {
+            if (line.match(_commentRegex) || line.match(_emptyRegex)) {
                 continue;
             }
 
@@ -413,10 +413,6 @@
                 var optionValue = optionInfo[OPTION_VALUE_INDEX];
                 var option      = _createOption(optionName, optionValue);
                 currentSection.options.push(option);
-                continue;
-            }
-
-            if (line.match(_emptyRegex)) {
                 continue;
             }
 
