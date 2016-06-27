@@ -4,7 +4,7 @@
  * The license is under GPL-3.0
  * Git repo:https://github.com/shangerxin/config-ini
  * Author homepage: http://www.shangerxin.com
- * Version, 1.1.3
+ * Version, 1.1.4
  */
 
 (function (exports) {
@@ -34,7 +34,7 @@
     };
 
     var DEFAULT_SECTION    = "__DEFAULT_SECTION__";
-    var _sectionRegex      = /\s*\[(\S+)\]\s*/;
+    var _sectionRegex      = /\s*\[\s*(\S+)\s*\]\s*/;
     var _optionRegex       = /\s*(\S+)\s*[=:]\s*(.*)\s*/;
     var _commentRegex      = /\s*[#;].*/;
     var _emptyRegex        = /^\s*$/;
