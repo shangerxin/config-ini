@@ -109,8 +109,9 @@
      * Duplicated sections will cause exception, duplicated options will be
      * ignored and only the first one will take effect.
      *
-     * @delimiter, the line delimiter which is used to separate the lines
-     * @return a ConfigIniParser object
+     * @constructor
+     * @param {string} delimiter, the line delimiter which is used to separate the lines
+     * @return {ConfigIniParser} a ConfigIniParser object
      */
     var ConfigIniParser = function (delimiter) {
         this.delimiter = delimiter? delimiter:DEFAULT_DELIMITER;
@@ -141,8 +142,8 @@
     /*
      * Create a new section, if the section is already contain in the structure then
      * a duplicated section exception will be thrown
-     * @sectionName, a string
-     * @return, the created section object
+     * @param {string} sectionName a section name defined in ini [section name]
+     * @return {object} the created section object
      */
     ConfigIniParser.prototype.addSection = function (sectionName) {
         if (_findSection(this._ini, sectionName)) {
@@ -157,10 +158,10 @@
 
     /*
      * Get a specify option value
-     * @sectionName, string
-     * @optionName, string
-     * @defaultValue, use the default value if the option is not exist
-     * @return, the string value of the option
+     * @param {string} sectionName the name defined in ini [section name]
+     * @param {string} optionName the name defined in ini option-name = option-value
+     * @param {object} defaultValue use the default value if the option is not exist
+     * @return {string/object} the string value of the option or the defaultValue
      */
     ConfigIniParser.prototype.get = function (sectionName, optionName, defaultValue) {
         var section = _findSection(this._ini, sectionName ? sectionName : DEFAULT_SECTION);
@@ -183,7 +184,7 @@
      * Convert the option value to boolean, if the value is a number then return true if it is
      * not equal to 0; if the value is string and which value is "true"/"false" then will be converted
      * to bool, return true if it is "true";
-     * @return, boolean
+     * @return {boolean} indicate the value is true or false
      */
     ConfigIniParser.prototype.getBoolean = function (sectionName, optionName) {
         var value = this.get(sectionName ? sectionName : DEFAULT_SECTION, optionName);
@@ -198,7 +199,7 @@
 
     /*
      * Convert a option value to number
-     * @return number or NaN
+     * @return {number/NaN} number or NaN
      */
     ConfigIniParser.prototype.getNumber = function (sectionName, optionName) {
         return +this.get(sectionName ? sectionName : DEFAULT_SECTION, optionName);
@@ -206,7 +207,7 @@
 
     /*
      * Check a specify section is exist or not
-     * @return boolean
+     * @return {boolean} to indicate the result
      */
     ConfigIniParser.prototype.isHaveSection = function (sectionName) {
         return !!_findSection(this._ini, sectionName);
@@ -214,7 +215,7 @@
 
     /*
      * Check an option is exist in a section or not.
-     * @return, boolean
+     * @return {boolean} boolean
      */
     ConfigIniParser.prototype.isHaveOption = function (sectionName, optionName) {
         var section = _findSection(this._ini, sectionName ? sectionName : DEFAULT_SECTION);
@@ -229,8 +230,8 @@
 
     /*
      * Get key/value pair of the options in the specify section
-     * @sectionName, string
-     * @return, an array contain several sub arrays which are composed by optionName,
+     * @param {string} sectionName a section name defined in ini [section name]
+     * @return {Array.} an array contain several sub arrays which are composed by optionName,
      * optionValue. The returned array looks like [[optionName0, optionValue0], ...]
      */
     ConfigIniParser.prototype.items = function (sectionName) {
@@ -247,8 +248,8 @@
 
     /*
      * Get all the option names from the specify section
-     * @sectionName, string
-     * @return an string array contain all the option names
+     * @param {string} sectionName a section name defined in ini [section name]
+     * @return {Array.} an string array contain all the option names
      */
     ConfigIniParser.prototype.options = function (sectionName) {
         var section = _findSection(this._ini, sectionName ? sectionName : DEFAULT_SECTION);
@@ -271,8 +272,8 @@
      * Remove the specify option from the section if the option exist then remove it
      * and return true else return false
      *
-     * @sectionName, string
-     * @optionName, string
+     * @param {string} sectionName a section name defined in ini [section name]
+     * @param {string} optionName
      * @return, boolean
      */
     ConfigIniParser.prototype.removeOption = function (sectionName, optionName) {
@@ -292,8 +293,8 @@
      * Remove the specify section if the section exist then remove it
      * and return true else return false
      *
-     * @sectionName, string
-     * @return, boolean
+     * @param {string} sectionName
+     * @return {boolean}
      */
     ConfigIniParser.prototype.removeSection = function (sectionName) {
         var sectionIndex = _findSectionIndex(this._ini, sectionName);
@@ -308,7 +309,7 @@
 
     /*
      * Get all the section names from the ini content
-     * @return an string array
+     * @return {Array.} an string array
      */
     ConfigIniParser.prototype.sections = function () {
         var sectionNames = [];
@@ -326,10 +327,10 @@
     /*
      * Set a option value, if the option is not exist then it will be added to the section.
      * If the section is not exist an errorNoSection will be thrown
-     * @sectionName, string
-     * @optionName, string
-     * @value, a value should be able to converted to string
-     * @return, parser object itself
+     * @param {string} sectionName, string
+     * @param {string} optionName, string
+     * @param {string} value, a value should be able to converted to string
+     * @return {object} parser object itself
      */
     ConfigIniParser.prototype.set = function (sectionName, optionName, value) {
         var section = _findSection(this._ini, sectionName ? sectionName : DEFAULT_SECTION);
@@ -355,7 +356,7 @@
      * Convert the configuration content to strings the line will the separate with the
      * given line delimiter. A empty line will be added between each section
      *
-     * @return, the content of configuration
+     * @return {string} the content of configuration
      */
     ConfigIniParser.prototype.stringify = function (delimiter) {
         var lines    = [];
@@ -381,8 +382,8 @@
 
     /*
      * Parse a given ini content
-     * @iniContent, a string normally separated with \r\n or \n
-     * @return, the parser instance itself
+     * @param {string} iniContent, a string normally separated with \r\n or \n
+     * @return {ConfigIniParser} the parser instance itself
      */
     ConfigIniParser.prototype.parse = function (iniContent) {
         var lines          = iniContent.split(this.delimiter);
