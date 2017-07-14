@@ -423,4 +423,4 @@
     };
 
     exports.ConfigIniParser = ConfigIniParser;
-}(typeof window != "undefined" ? window : (typeof exports != "undefined" ? exports : {})));
+}(typeof exports != "undefined" ? exports : (typeof window != "undefined" ? window:{})));
