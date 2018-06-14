@@ -4,7 +4,7 @@
  * The license is under GPL-3.0
  * Git repo:https://github.com/shangerxin/config-ini
  * Author homepage: http://www.shangerxin.com
- * Version, 1.1.6
+ * Version, 1.1.8
  */
 var ConfigIniParser = require("../config-ini").ConfigIniParser;
 var expect = require("chai").expect;
@@ -12,7 +12,7 @@ var expect = require("chai").expect;
 describe("test-config-ini suite", function(){
     var CRLF = "\r\n";
     var iniContent = [
-    "; this comment is being ignored",
+    "; this comment is ignored",
     "scope = global",
     "",
     "[database]",

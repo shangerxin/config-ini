@@ -4,7 +4,7 @@
  * The license is under GPL-3.0
  * Git repo:https://github.com/shangerxin/config-ini
  * Author homepage: http://www.shangerxin.com
- * Version, 1.1.6
+ * Version, 1.1.8
  */
 
 (function (exports) {
@@ -34,7 +34,7 @@
     };
 
     var DEFAULT_SECTION    = "__DEFAULT_SECTION__";
-    var _sectionRegex      = /\s*\[\s*(\S+)\s*\]\s*/;
+    var _sectionRegex      = /^\s*\[\s*(\S+)\s*\]\s*$/;
     var _optionRegex       = /\s*(\S+)\s*[=:]\s*(.*)\s*/;
     var _commentRegex      = /^\s*[#;].*/;
     var _emptyRegex        = /^\s*$/;
@@ -375,7 +375,9 @@
                 currentOption = options[j];
                 lines.push(currentOption.name + "=" + currentOption.value);
             }
-            lines.push("");
+            if(lines.length > 0){
+                lines.push("");
+            }
         }
         return lines.join(delimiter? delimiter:this.delimiter);
     };

@@ -2,3 +2,4 @@ node_modules
 .idea/
 .idea/*.*
 npm-debug.log
+.vscode/
