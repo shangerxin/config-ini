@@ -75,7 +75,7 @@ describe("test-config-ini suite", function(){
 		expect(parser.stringify(CRLF)).to.be.equal(expectedIniContent);
 	});
 
-	it("Support add whitspaces into as section name", function(){
+	it("Support add whitspaces into section name", function(){
 		var issueIniContent = [
 			'[section name with spaces]',
 			'var = 1',
