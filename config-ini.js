@@ -34,7 +34,7 @@
     };
 
     var DEFAULT_SECTION    = "__DEFAULT_SECTION__";
-    var _sectionRegex      = /^\s*\[\s*(\S+)\s*\]\s*$/;
+    var _sectionRegex      = /^\s*\[\s*([^\]]+?)\s*\]\s*$/;
     var _optionRegex       = /\s*(\S+)\s*[=:]\s*(.*)\s*/;
     var _commentRegex      = /^\s*[#;].*/;
     var _emptyRegex        = /^\s*$/;

@@ -74,4 +74,27 @@ describe("test-config-ini suite", function(){
 		].join(CRLF).replace(/\s+=\s+/g, "=");
 		expect(parser.stringify(CRLF)).to.be.equal(expectedIniContent);
 	});
+
+	it("Support add whitspaces into as section name", function(){
+		var issueIniContent = [
+			'[section name with spaces]',
+			'var = 1',
+			'[ section_name_with_prefix_space]',
+			'var = 1',
+			'[section_name(*1%with_suffix_space ]',
+			'var = 1',
+			'[ section name with prefix and suffix spaces ]',
+			'var = 1',
+			''
+		].join(CRLF);
+
+		parser.parse(issueIniContent);
+		var sections = parser.sections();
+
+        expect(sections).to.have.lengthOf(4);
+		expect(sections).to.have.members(["section name with spaces",
+										 "section_name_with_prefix_space",
+										 "section_name(*1%with_suffix_space",
+										 "section name with prefix and suffix spaces"]);
+	});
 });
