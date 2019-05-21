@@ -8,30 +8,25 @@
  */
 
 (function (exports) {
-    var error = {
+    var error = Object.assign(new Error(), {
         name   : "ConfigIniParser Error",
         message: "Parse config ini file error"
-    };
+    });
 
-    var errorNoSection = {
+    var errorNoSection = Object.assign(new Error(), {
         name   : "ConfigIniParser Error",
         message: "The specify section not found"
-    };
+    });
 
-    var errorNoOption = {
+    var errorNoOption = Object.assign(new Error(), {
         name   : "ConfigIniParser Error",
         message: "The specify option not found"
-    };
+    });
 
-    var errorDuplicateSectionError = {
+    var errorDuplicateSectionError = Object.assign(new Error(), {
         name   : "ConfigIniParser Error",
         message: "Found duplicated section in the given ini file"
-    };
-
-    var errorNoDelimiter = {
-        name   : "ConfigIniParser Error",
-        message: "The parameter delimiter is required"
-    };
+    });
 
     var DEFAULT_SECTION    = "__DEFAULT_SECTION__";
     var _sectionRegex      = /^\s*\[\s*([^\]]+?)\s*\]\s*$/;

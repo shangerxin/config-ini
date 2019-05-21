@@ -64,6 +64,7 @@ describe("test-config-ini suite", function(){
         expect(parser.get("database", "user")).to.be.equal("dbuser");
         expect(parser.get(null, "scope")).to.be.equal("global");
         expect(parser.get("unexist", "unexist", "default")).to.be.equal("default");
+        expect(function(){ parser.get("unexist", "unexist"); }).to.throw();
     });
 
     it("set", function(){
@@ -128,5 +129,6 @@ describe("test-config-ini suite", function(){
         expect(parser.isHaveSection("database")).to.be.true;
         parser.removeSection("database");
         expect(parser.isHaveSection("database")).to.be.false;
+        expect(function(){parser.get('database', 'user');}).to.throw();
     });
 });
