@@ -91,10 +91,10 @@ ConfigIniParser([delimiter]);
 //return all the option names under a specify section into an array
 .options(sectionName);
 
-//remove a specify option from the section if it exist and succeful removed then return true, if not exist then return false
+//remove a specify option from the section if it exist and successful removed then return true, if not exist then return false
 .removeOption(sectionName, optionName);
 
-//remove a specify section if it exist and succeful removed then return true, if not exist then return false
+//remove a specify section if it exist and successful removed then return true, if not exist then return false
 .removeSection(sectionName);
 
 //return all the section names into an array
