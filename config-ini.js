@@ -28,9 +28,14 @@
         message: "Found duplicated section in the given ini file"
     });
 
+    var errorCallParseMultipleTimes = Object.assign(new Error(), {
+        name   : "ConfigIniParser Error",
+        message: "Multiple call parse on the same parser instance"
+    });
+
     var DEFAULT_SECTION    = "__DEFAULT_SECTION__";
     var _sectionRegex      = /^\s*\[\s*([^\]]+?)\s*\]\s*$/;
-    var _optionRegex       = /\s*(\S+)\s*[=:]\s*(.*)\s*/;
+    var _optionRegex       = /\s*([^=:\s]+)\s*[=:]\s*(.*)\s*/;
     var _commentRegex      = /^\s*[#;].*/;
     var _emptyRegex        = /^\s*$/;
     var SECTION_NAME_INDEX = 1;
@@ -109,7 +114,8 @@
      * @return {ConfigIniParser} a ConfigIniParser object
      */
     var ConfigIniParser = function (delimiter) {
-        this.delimiter = delimiter? delimiter:DEFAULT_DELIMITER;
+        this.delimiter = delimiter ? delimiter : DEFAULT_DELIMITER;
+        this._calledParse = false;
 
         /*
          _init object structure
@@ -383,6 +389,10 @@
      * @return {ConfigIniParser} the parser instance itself
      */
     ConfigIniParser.prototype.parse = function (iniContent) {
+        if (this._calledParse) {
+            throw errorCallParseMultipleTimes;
+        }
+        this._calledParse  = true;
         var lines          = iniContent.split(this.delimiter);
         var currentSection = _findSection(this._ini, DEFAULT_SECTION);
 
