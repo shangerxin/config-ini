@@ -6,7 +6,7 @@
 -   created by Erxin,Shang(Edwin)
     -   Git repo:[https://github.com/shangerxin/config-ini](https://github.com/shangerxin/config-ini)
     -   Author homepage: [ http://www.shangerxin.com](http://www.shangerxin.com)
-    -   Version, 1.3.1
+    -   Version, 1.3.2
 
 # Install
 
@@ -59,6 +59,23 @@ var delimiter = "\r\n"; //or "\n" for *nux. by default it will use \n
 parser = new ConfigIniParser(delimiter); //If don't assign the parameter delimiter then the default value \n will be used
 parser.parse(iniContent);
 var value = parser.get("section", "option");
+```
+
+-   Reference the config-ini.d.ts file in typescript project
+
+```
+///<reference path="..\\node_modules\\config-ini-parser\\config-ini.d.ts"/>
+
+import ConfigIniParser = require("config-ini-parser");
+
+let p = new ConfigIniParser();
+try {
+    p.addSection("abc");
+} catch (e) {
+    if (e == ConfigIniParser.Errors.ErrorDuplicateSectionError) {
+        console.error("Add duplicated section");
+    }
+}
 ```
 
 # APIs
