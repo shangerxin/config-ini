@@ -139,4 +139,4 @@ declare class ConfigIniParser {
 	};
 }
 
-export = ConfigIniParser;
+export = {ConfigIniParser};
