@@ -31,4 +31,3 @@ declare class ConfigIniParser {
 
 	parse(iniContent: string): object;
 }
-
