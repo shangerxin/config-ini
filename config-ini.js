@@ -429,5 +429,13 @@
         return this;
     };
 
+    ConfigIniParser.Errors = {
+        Error: error,
+        ErrorNoSection: errorNoSection,
+        ErrorNoOption: errorNoOption,
+        ErrorDuplicateSectionError: errorDuplicateSectionError,
+        ErrorCallParseMultipleTimes: errorCallParseMultipleTimes
+    };
+
     exports.ConfigIniParser = ConfigIniParser;
 }(typeof exports != "undefined" ? exports : (typeof window != "undefined" ? window:{})));
