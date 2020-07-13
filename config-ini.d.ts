@@ -48,7 +48,7 @@ declare class ConfigIniParser {
 	 * Convert a option value to number
 	 * @return {number/NaN} number or NaN
 	 */
-	getNumber(sectionName: string, optionName): number;
+	getNumber(sectionName: string, optionName: string): number;
 
 	/*
 	 * Check a specify section is exist or not
