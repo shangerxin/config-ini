@@ -28,11 +28,11 @@ declare class ConfigIniParser {
 	addSection(sectionName: string): Section;
 
 	/*
-	 * Get a specify option value
-	 * @param {string} sectionName the name defined in ini [section name]
-	 * @param {string} optionName the name defined in ini option-name = option-value
-	 * @param {object} defaultValue use the default value if the option is not exist
-	 * @return {string/object} the string value of the option or the defaultValue
+	 * Get a specific option value
+	 * @param {string} sectionName the name defined in ini `[section name]`
+	 * @param {string} optionName the name defined in ini `option-name = option-value`
+	 * @param {object} defaultValue optional default value to be used when the option does not exist. If it is not provided and the value does not exist, then an exception is thrown.
+	 * @return {string/object} the string value of the option or defaultValue
 	 */
 	get(sectionName: string, optionName: string, defaultValue: any): any;
 
