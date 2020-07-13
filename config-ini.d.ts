@@ -139,4 +139,6 @@ declare class ConfigIniParser {
 	};
 }
 
-export = {ConfigIniParser};
+declare const _exported: { ConfigIniParser: ConfigIniParser }
+
+export = _exported;
