@@ -34,7 +34,7 @@ declare class ConfigIniParser {
 	 * @param {object} defaultValue optional default value to be used when the option does not exist. If it is not provided and the value does not exist, then an exception is thrown.
 	 * @return {string/object} the string value of the option or defaultValue
 	 */
-	get(sectionName: string, optionName: string, defaultValue: any): any;
+	get(sectionName: string, optionName: string, defaultValue?: any): any;
 
 	/*
 	 * Convert the option value to boolean, if the value is a number then return true if it is
