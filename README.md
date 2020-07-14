@@ -6,7 +6,7 @@
 -   created by Erxin,Shang(Edwin)
     -   Git repo:[https://github.com/shangerxin/config-ini](https://github.com/shangerxin/config-ini)
     -   Author homepage: [ http://www.shangerxin.com](http://www.shangerxin.com)
-    -   Version, 1.3.3
+    -   Version, 1.3.4
 
 # Install
 

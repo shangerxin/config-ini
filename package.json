@@ -1,6 +1,6 @@
 {
 	"name": "config-ini-parser",
-	"version": "1.3.3",
+	"version": "1.3.4",
 	"description": "JavaScript Configuration file(.ini) content parser, similar to python ConfigParser without I/O operations",
 	"main": "config-ini.js",
 	"scripts": {
