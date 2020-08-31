@@ -1,6 +1,6 @@
 /// <reference types="typescript" />
 
-interface Section {
+export interface Section {
 	name: string;
 	options: Array<any>;
 }
@@ -16,7 +16,7 @@ interface Section {
  * @param {string} delimiter, the line delimiter which is used to separate the lines
  * @return {ConfigIniParser} a ConfigIniParser object
  */
-declare class ConfigIniParser {
+export declare class ConfigIniParser {
 	constructor(delimiter?: string);
 
 	/*
@@ -138,7 +138,3 @@ declare class ConfigIniParser {
 		readonly ErrorCallParseMultipleTimes: Error;
 	};
 }
-
-declare const _exported: { ConfigIniParser: ConfigIniParser }
-
-export = _exported;
