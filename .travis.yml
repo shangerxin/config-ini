@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "node"
+install:
+  - npm install
+script:
+  - npm test
+after_script:
+  - nyc npm test && nyc report --reporter=text-lcov | coveralls
