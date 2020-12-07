@@ -1,5 +1,7 @@
 # Introduction for config-ini [![Build Status](https://travis-ci.com/shangerxin/config-ini.svg?branch=master)](https://travis-ci.com/shangerxin/config-ini)
 
+[![Coverage Status](https://coveralls.io/repos/github/shangerxin/config-ini/badge.svg?branch=master)](https://coveralls.io/github/shangerxin/config-ini?branch=master)
+
 -   description
     JavaScript Configuration file(.ini) content parser, similar to python ConfigParser without I/O operations
 
