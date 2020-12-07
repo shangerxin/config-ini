@@ -4,7 +4,7 @@
  * The license is under GPL-3.0
  * Git repo:https://github.com/shangerxin/config-ini
  * Author homepage: http://www.shangerxin.com
- * Version, 1.3.5
+ * Version, 1.3.6
  */
 var ConfigIniParser = require("../config-ini").ConfigIniParser;
 var expect = require("chai").expect;
@@ -72,12 +72,38 @@ describe("test-config-ini suite", function(){
         parser.set("database", "new option", "new-value");
         expect(parser.get("database", "user")).to.be.equal("new-value");
         expect(parser.get("database", "new option")).to.be.equal("new-value");
+        expect(function() { parser.set("not-exist-section", "option", "value"); }).to.throw(ConfigIniParser.Errors.ErrorNoSection);
     });
 
     it("sections", function(){
         var sections = parser.sections();
         expect(sections).to.have.lengthOf(2);
         expect(sections).to.have.members(["database", "paths.default"]);
+    });
+
+    it("parse ini with duplicate sections", function(){
+        var contentWithDuplicateSections = [
+            "[database]",
+            "database = use_this_database",
+            "",
+            "[database]",
+            "datadir = /var/lib/data",
+            ""
+        ].join(CRLF).replace(/\s+=\s+/g, "=");
+        var parseError = new ConfigIniParser();
+        expect(function() { parseError.parse(contentWithDuplicateSections);}).to.throw(ConfigIniParser.Errors.ErrorDuplicateSectionError);
+    });
+
+    it("parse unknown file content error", function(){
+        var errorContent = [
+            "---adf",
+            "database dsadfa use_this_database",
+            "",
+            "datadir 555 /var/lib/data",
+            ""
+        ].join(CRLF).replace(/\s+=\s+/g, "=");
+        var parseError = new ConfigIniParser();
+        expect(function() { parseError.parse(errorContent);}).to.throw(ConfigIniParser.Errors.Error);
     });
 
     it("isHaveSection", function(){
@@ -100,6 +126,7 @@ describe("test-config-ini suite", function(){
     it("options", function(){
         expect(parser.options()).to.have.members(["scope"]);
         expect(parser.options("paths.default")).to.have.members(["datadir", "p0", "p1", "p2"]);
+        expect(function(){ parser.options("not-exist-section"); }).to.throw(ConfigIniParser.Errors.ErrorNoSection);
     });
 
     it("getBoolean", function(){
@@ -117,12 +144,14 @@ describe("test-config-ini suite", function(){
         expect(parser.isHaveSection("new section")).to.be.false;
         parser.addSection("new section");
         expect(parser.isHaveSection("new section")).to.be.true;
+        expect(function(){ parser.addSection("new section"); }).to.throw(ConfigIniParser.Errors.ErrorDuplicateSectionError);
     });
 
     it("removeOption", function(){
         expect(parser.isHaveOption("paths.default", "p1")).to.be.true;
         parser.removeOption("paths.default", "p1");
         expect(parser.isHaveOption("paths.default", "p1")).to.be.false;
+        expect(parser.removeOption("paths.default", "not-exist-option")).to.be.false;
     });
 
     it("removeSection", function(){
@@ -130,5 +159,6 @@ describe("test-config-ini suite", function(){
         parser.removeSection("database");
         expect(parser.isHaveSection("database")).to.be.false;
         expect(function(){parser.get('database', 'user');}).to.throw();
+        expect(parser.removeSection("not-exist-section")).to.be.false;
     });
 });
