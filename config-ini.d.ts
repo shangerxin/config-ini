@@ -37,6 +37,15 @@ export declare class ConfigIniParser {
 	get(sectionName: string, optionName: string, defaultValue?: any): any;
 
 	/*
+     * Get a option from the default section. This is a convenient method when get the
+     * option from the default section.
+     * @param {string} optionName the name defined in ini `option-name = option-value`
+     * @param {object} defaultValue optional default value to be used when the option does not exist. If it is not provided and the value does not exist, then an exception is thrown.
+     * @return {string/object} the string value of the option or defaultValue
+     */
+	getOptionFromDefaultSection(optionName: string, defaultValue?:any):any;
+
+	/*
 	 * Convert the option value to boolean, if the value is a number then return true if it is
 	 * not equal to 0; if the value is string and which value is "true"/"false" then will be converted
 	 * to bool, return true if it is "true";
@@ -45,10 +54,27 @@ export declare class ConfigIniParser {
 	getBoolean(sectionName: string, optionName: string): boolean;
 
 	/*
+     * Get the option from the default section and convert the value to boolean, if the
+     * value is a number then return true if it is
+     * not equal to 0; if the value is string and which value is "true"/"false" then
+     * will be converted to bool, return true if it is "true";
+     * @param {string} optionName the name defined in ini `option-name = option-value`
+     * @return {boolean} indicate the value is true or false
+     */
+	getBooleanFromDefaultSection(optionName: string): boolean;
+
+	/*
 	 * Convert a option value to number
 	 * @return {number/NaN} number or NaN
 	 */
 	getNumber(sectionName: string, optionName: string): number;
+
+	/*
+     * Get the option from the default section and convert the value to number
+     * @param {string} optionName the name defined in ini `option-name = option-value`
+     * @return {number/NaN} number or NaN
+     */
+	getNumberFromDefaultSection(optionName: string): number;
 
 	/*
 	 * Check a specify section is exist or not
@@ -115,6 +141,15 @@ export declare class ConfigIniParser {
 		optionName: string,
 		value: string
 	): ConfigIniParser;
+
+	/*
+     * Set a option value to the default section. if the option is not exist then
+     * it will be created and added to the default section.
+     * @param {string} optionName, string
+     * @param {string} value, a value should be able to converted to string
+     * @return {object} parser object itself
+     */
+	setOptionInDefaultSection(optionName: string, value:string):ConfigIniParser;
 
 	/*
 	 * Convert the configuration content to strings the line will the separate with the

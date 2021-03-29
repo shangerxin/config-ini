@@ -6,7 +6,7 @@
 -   created by Erxin,Shang(Edwin)
     -   Git repo:[https://github.com/shangerxin/config-ini](https://github.com/shangerxin/config-ini)
     -   Author homepage: [ http://www.shangerxin.com](http://www.shangerxin.com)
-    -   Version, 1.3.8
+    -   Version, 1.5.0
 
 # Install
 
@@ -48,6 +48,8 @@ var delimiter = "\r\n"; //or "\n" for *nux
 parser = new ConfigIniParser(delimiter); //If don't assign the parameter delimiter then the default value \n will be used
 parser.parse(iniContent);
 var value = parser.get("section", "option");
+value = parser.get(null, "option"); //access the default section
+value = parser.getOptionFromDefaultSection("option"); //access the default section
 parser.stringify('\n'); //get all the ini file content as a string
 ```
 
@@ -59,6 +61,8 @@ var delimiter = "\r\n"; //or "\n" for *nux. by default it will use \n
 parser = new ConfigIniParser(delimiter); //If don't assign the parameter delimiter then the default value \n will be used
 parser.parse(iniContent);
 var value = parser.get("section", "option");
+value = parser.get(null, "option"); //access the default section
+value = parser.getOptionFromDefaultSection("option"); //access the default section
 ```
 
 -   Reference the config-ini.d.ts file in typescript project
@@ -90,13 +94,22 @@ ConfigIniParser([delimiter]);
 .addSection(sectionName);
 
 //return the option value
-.get(sectionName, optionName, [defaultValue]) ;
+.get(sectionName, optionName[, defaultValue]) ;
 
-//return boolean
+//return the option value from default section
+.getOptionFromDefaultSection(optionName[, defaultValue]);
+
+//return option value and convert to boolean
 .getBoolean(sectionName, optionName);
 
-//return value and converted to number
+//return option value and convert to boolean from the default section
+.getBooleanFromDefaultSection(optionName);
+
+//return option value and converted to number
 .getNumber(sectionName, optionName);
+
+//return value and converted to number from default section
+.getNumberFromDefaultSection(optionName);
 
 //return boolean
 .isHaveSection(sectionName);
@@ -121,6 +134,9 @@ ConfigIniParser([delimiter]);
 
 //set the value of the option in a given section, if the option is not exist then it will be added, if the section is not exist then exception will be raise
 .set(sectionName, optionName, value);
+
+//set the option to the given value in the default section. if the option is not exit then it will be added.
+.setOptionInDefaultSection(optionName, value);
 
 //convert back the configuration content into delimiter separated string, if delimiter is
 //ignore then '\n' will be used
