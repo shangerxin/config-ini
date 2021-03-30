@@ -4,7 +4,7 @@
  * The license is under GPL-3.0
  * Git repo:https://github.com/shangerxin/config-ini
  * Author homepage: http://www.shangerxin.com
- * Version, 1.5.0
+ * Version, 1.5.1
  */
 
 (function (exports) {
@@ -31,6 +31,11 @@
     var errorCallParseMultipleTimes = Object.assign(new Error(), {
         name   : "ConfigIniParser Error",
         message: "Multiple call parse on the same parser instance"
+    });
+
+    var errorIncorrectArgumentType = Object.assign(new TypeError(), {
+        name : "ConfigIniParser Error",
+        message: "The argument type is not correct"
     });
 
     var DEFAULT_SECTION    = "__DEFAULT_SECTION__";
@@ -149,8 +154,7 @@
     ConfigIniParser.prototype.addSection = function (sectionName) {
         if (_findSection(this._ini, sectionName)) {
             throw errorDuplicateSectionError;
-        }
-        else {
+        } else {
             var section = _createSection(sectionName);
             this._ini.sections.push(section);
             return this;
@@ -159,7 +163,8 @@
 
     /*
      * Get a specific option value
-     * @param {string} sectionName the name defined in ini `[section name]`
+     * @param {string} sectionName the name defined in ini `[section name]`. If null the default
+     *      section will be used.
      * @param {string} optionName the name defined in ini `option-name = option-value`
      * @param {object} defaultValue optional default value to be used when the option does not exist. If it is not provided and the value does not exist, then an exception is thrown.
      * @return {string/object} the string value of the option or defaultValue
@@ -250,7 +255,7 @@
         );
     };
 
-     /*
+    /*
      * Get the option from the default section and convert the value to number
      * @param {string} optionName the name defined in ini `option-name = option-value`
      * @return {number/NaN} number or NaN
@@ -266,11 +271,16 @@
      * @return {boolean} to indicate the result
      */
     ConfigIniParser.prototype.isHaveSection = function (sectionName) {
+        if(!sectionName){
+            throw errorIncorrectArgumentType;
+        }
         return !!_findSection(this._ini, sectionName);
     };
 
     /*
      * Check an option is exist in a section or not.
+     * @param {string} sectionName the name of the section. If null a default section will
+     * be used
      * @return {boolean} boolean
      */
     ConfigIniParser.prototype.isHaveOption = function (
@@ -291,8 +301,19 @@
     };
 
     /*
+     * Check an option is exist in the default section or not.
+     * @return {boolean} boolean
+     */
+    ConfigIniParser.prototype.isHaveOptionInDefaultSection = function (
+        optionName
+    ) {
+        return this.isHaveOption(null, optionName);
+    };
+
+    /*
      * Get key/value pair of the options in the specify section
-     * @param {string} sectionName a section name defined in ini [section name]
+     * @param {string} sectionName a section name defined in ini [section name]. If sectionName
+     * is null then the default section will be used.
      * @return {Array.} an array contain several sub arrays which are composed by optionName,
      * optionValue. The returned array looks like [[optionName0, optionValue0], ...]
      */
@@ -312,7 +333,8 @@
     };
 
     /*
-     * Get all the option names from the specify section
+     * Get all the option names from the specify section. If the sectionName is null
+     * the default section will be used
      * @param {string} sectionName a section name defined in ini [section name]
      * @return {Array.} an string array contain all the option names
      */
@@ -337,7 +359,8 @@
 
     /*
      * Remove the specify option from the section if the option exist then remove it
-     * and return true else return false
+     * and return true else return false. If the sectionName null then the default
+     * section will be used.
      *
      * @param {string} sectionName a section name defined in ini [section name]
      * @param {string} optionName
@@ -364,15 +387,22 @@
 
     /*
      * Remove the specify section if the section exist then remove it
-     * and return true else return false
+     * and return true else return false. If null is passed. Then the
+     * default section will be removed
      *
      * @param {string} sectionName
      * @return {boolean}
      */
     ConfigIniParser.prototype.removeSection = function (sectionName) {
-        var sectionIndex = _findSectionIndex(this._ini, sectionName);
+        var sectionIndex = _findSectionIndex(
+            this._ini,
+            sectionName ? sectionName : DEFAULT_SECTION
+        );
         if (sectionIndex != NOT_FOUND) {
             this._ini.sections.splice(sectionIndex, 1);
+            if (sectionName === DEFAULT_SECTION)         {
+                this._ini.sections.push(_createSection(DEFAULT_SECTION));
+            }
             return true;
         } else {
             return false;
@@ -433,7 +463,10 @@
      * @param {string} value, a value should be able to converted to string
      * @return {object} parser object itself
      */
-    ConfigIniParser.prototype.setOptionInDefaultSection = function (optionName, value){
+    ConfigIniParser.prototype.setOptionInDefaultSection = function (
+        optionName,
+        value
+    ) {
         return this.set(null, optionName, value);
     };
 
@@ -518,6 +551,7 @@
         ErrorNoOption: errorNoOption,
         ErrorDuplicateSectionError: errorDuplicateSectionError,
         ErrorCallParseMultipleTimes: errorCallParseMultipleTimes,
+        ErrorIncorrectArgumentType: errorIncorrectArgumentType
     };
 
     exports.ConfigIniParser = ConfigIniParser;

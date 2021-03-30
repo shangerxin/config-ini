@@ -4,7 +4,7 @@
  * The license is under GPL-3.0
  * Git repo:https://github.com/shangerxin/config-ini
  * Author homepage: http://www.shangerxin.com
- * Version, 1.5.0
+ * Version, 1.5.1
  */
 var ConfigIniParser = require("../config-ini").ConfigIniParser;
 var expect = require("chai").expect;
@@ -12,19 +12,20 @@ var expect = require("chai").expect;
 describe("test-config-ini suite", function(){
     var CRLF = "\r\n";
     var iniContent = [
-    "; this comment is ignored",
-    "scope = global",
-    "",
-    "[database]",
-    "user = dbuser",
-    "password = dbpassword",
-    "database = use_this_database",
-    "",
-    "[paths.default]",
-    "datadir = /var/lib/data",
-    "p0 = first value",
-    "p1 = false",
-    "p2 = 13.5"
+        "; this comment is ignored",
+        "scope = global",
+        "string_boolean = true",
+        "",
+        "[database]",
+        "user = dbuser",
+        "password = dbpassword",
+        "database = use_this_database",
+        "",
+        "[paths.default]",
+        "datadir = /var/lib/data",
+        "p0 = first value",
+        "p1 = false",
+        "p2 = 13.5",
     ].join(CRLF);
     var parser;
 
@@ -35,7 +36,7 @@ describe("test-config-ini suite", function(){
 
     it("parse", function(){
         expect(parser._ini.sections).to.have.lengthOf(3);
-        expect(parser._ini.sections[0].options).to.have.lengthOf(1); //default section
+        expect(parser._ini.sections[0].options).to.have.lengthOf(2); //default section
         expect(parser._ini.sections[1].options).to.have.lengthOf(3);
         expect(parser._ini.sections[2].options).to.have.lengthOf(4);
     });
@@ -43,6 +44,7 @@ describe("test-config-ini suite", function(){
     it("stringify", function(){
         var expectIniContent = [
             "scope = global",
+            "string_boolean = true",
             "",
             "[database]",
             "user = dbuser",
@@ -54,8 +56,10 @@ describe("test-config-ini suite", function(){
             "p0 = first value",
             "p1 = false",
             "p2 = 13.5",
-            ""
-        ].join(CRLF).replace(/\s+=\s+/g, "=");
+            "",
+        ]
+            .join(CRLF)
+            .replace(/\s+=\s+/g, "=");
 
         expect(parser.stringify(CRLF)).to.be.equal(expectIniContent);
     });
@@ -64,7 +68,9 @@ describe("test-config-ini suite", function(){
         expect(parser.get("database", "user")).to.be.equal("dbuser");
         expect(parser.get(null, "scope")).to.be.equal("global");
         expect(parser.get("unexist", "unexist", "default")).to.be.equal("default");
-        expect(function(){ parser.get("unexist", "unexist"); }).to.throw();
+        expect(function () {
+            parser.get("unexist", "unexist");
+        }).to.throw(ConfigIniParser.Errors.ErrorNoOption);
     });
 
     it("set", function(){
@@ -73,6 +79,9 @@ describe("test-config-ini suite", function(){
         expect(parser.get("database", "user")).to.be.equal("new-value");
         expect(parser.get("database", "new option")).to.be.equal("new-value");
         expect(function() { parser.set("not-exist-section", "option", "value"); }).to.throw(ConfigIniParser.Errors.ErrorNoSection);
+
+        parser.set(null, "scope", "new-value");
+        expect(parser.get(null, "scope")).to.be.equal("new-value");
     });
 
     it("sections", function(){
@@ -109,22 +118,36 @@ describe("test-config-ini suite", function(){
     it("isHaveSection", function(){
         expect(parser.isHaveSection("database")).to.be.true;
         expect(parser.isHaveSection("not-exist")).to.be.false;
+
+        //check default section
+        expect(function () {
+            parser.isHaveSection();
+        }).to.throw(ConfigIniParser.Errors.ErrorIncorrectArgumentType);
     });
 
     it("isHaveOption", function(){
         expect(parser.isHaveOption("paths.default", "p0")).to.be.true;
         expect(parser.isHaveOption("paths.default", "not-exist")).to.be.false;
+        expect(parser.isHaveOption(null, "scope")).to.be.true;
+    });
+
+    it("isHaveOptionInDefaultSection", function () {
+        expect(parser.isHaveOptionInDefaultSection("scope")).to.be.true;
+        expect(parser.isHaveOptionInDefaultSection("not-exist")).to.be.false;
     });
 
     it("items", function(){
-        expect(parser.items()).to.be.eql([["scope", "global"]]);
+        expect(parser.items()).to.be.eql([
+            ["scope", "global"],
+            ["string_boolean", "true"],
+        ]);
         expect(parser.items("database")).to.be.eql([["user", "dbuser"],
                                                     ["password", "dbpassword"],
                                                     ["database", "use_this_database"]]);
     });
 
     it("options", function(){
-        expect(parser.options()).to.have.members(["scope"]);
+        expect(parser.options()).to.have.members(["scope", "string_boolean"]);
         expect(parser.options("paths.default")).to.have.members(["datadir", "p0", "p1", "p2"]);
         expect(function(){ parser.options("not-exist-section"); }).to.throw(ConfigIniParser.Errors.ErrorNoSection);
     });
@@ -133,11 +156,14 @@ describe("test-config-ini suite", function(){
         expect(parser.getBoolean("paths.default", "p1")).to.be.a("boolean");
         expect(parser.getBoolean("paths.default", "p1")).to.be.false;
         expect(parser.getBoolean("paths.default", "p2")).to.be.true;
+        expect(parser.getBoolean(null, "scope")).to.be.false;
+        expect(parser.getBoolean(null, "string_boolean")).to.be.true;
     });
     
     it("getNumber", function(){
         expect(parser.getNumber("paths.default", "p2")).to.be.equal(13.5);
         expect(parser.getNumber("paths.default", "p2")).to.be.a("number");
+        expect(parser.getNumber(null, "scope")).to.be.NaN;
     });
 
     it("addSection", function(){
@@ -151,14 +177,25 @@ describe("test-config-ini suite", function(){
         expect(parser.isHaveOption("paths.default", "p1")).to.be.true;
         parser.removeOption("paths.default", "p1");
         expect(parser.isHaveOption("paths.default", "p1")).to.be.false;
-        expect(parser.removeOption("paths.default", "not-exist-option")).to.be.false;
+
+        expect(parser.removeOption("paths.default", "not-exist-option")).to.be
+            .false;
+
+        parser.removeOption(null, "scope");
+        expect(parser.isHaveOption(null, "scope")).to.be.false;
     });
 
     it("removeSection", function(){
         expect(parser.isHaveSection("database")).to.be.true;
         parser.removeSection("database");
         expect(parser.isHaveSection("database")).to.be.false;
-        expect(function(){parser.get('database', 'user');}).to.throw();
+
+        expect(function () {
+            parser.get("database", "user");
+        }).to.throw();
         expect(parser.removeSection("not-exist-section")).to.be.false;
+
+        parser.removeSection();
+        expect(parser.isHaveOption(null, "scope")).to.be.false;
     });
 });

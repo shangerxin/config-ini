@@ -29,12 +29,12 @@ export declare class ConfigIniParser {
 
 	/*
 	 * Get a specific option value
-	 * @param {string} sectionName the name defined in ini `[section name]`
+	 * @param {string|null} sectionName the name defined in ini `[section name]`
 	 * @param {string} optionName the name defined in ini `option-name = option-value`
 	 * @param {object} defaultValue optional default value to be used when the option does not exist. If it is not provided and the value does not exist, then an exception is thrown.
 	 * @return {string/object} the string value of the option or defaultValue
 	 */
-	get(sectionName: string, optionName: string, defaultValue?: any): any;
+	get(sectionName: string|null, optionName: string, defaultValue?: any): any;
 
 	/*
      * Get a option from the default section. This is a convenient method when get the
@@ -49,9 +49,12 @@ export declare class ConfigIniParser {
 	 * Convert the option value to boolean, if the value is a number then return true if it is
 	 * not equal to 0; if the value is string and which value is "true"/"false" then will be converted
 	 * to bool, return true if it is "true";
+	 * @param {string|null} sectionName, the name of the section. If null the default section will
+	 * be used.
+	 * @param {string} optionName the name defined in ini `option-name = option-value`
 	 * @return {boolean} indicate the value is true or false
 	 */
-	getBoolean(sectionName: string, optionName: string): boolean;
+	getBoolean(sectionName: string|null, optionName: string): boolean;
 
 	/*
      * Get the option from the default section and convert the value to boolean, if the
@@ -65,9 +68,12 @@ export declare class ConfigIniParser {
 
 	/*
 	 * Convert a option value to number
+	 * @param {string|null} sectionName, the name of the section. If null the default section will
+	 * be used.
+	 * @param {string} optionName the name defined in ini `option-name = option-value`
 	 * @return {number/NaN} number or NaN
 	 */
-	getNumber(sectionName: string, optionName: string): number;
+	getNumber(sectionName: string|null, optionName: string): number;
 
 	/*
      * Get the option from the default section and convert the value to number
@@ -78,49 +84,64 @@ export declare class ConfigIniParser {
 
 	/*
 	 * Check a specify section is exist or not
+	 * @param {string} sectionName the name of the section
 	 * @return {boolean} to indicate the result
 	 */
 	isHaveSection(sectionName: string): boolean;
 
 	/*
-	 * Check an option is exist in a section or not.
+	 * Check an option is exist in a section or not. If sectionName is null then will check
+	 * the default section
+	 * @param {string|null} sectionName, the name of the section. If null the default section will
+	 * be used.
+	 * @param {string} optionName the name defined in ini `option-name = option-value`
 	 * @return {boolean} boolean
 	 */
-	isHaveOption(sectionName: string, optionName: string): boolean;
+	isHaveOption(sectionName: string|null, optionName: string): boolean;
 
 	/*
-	 * Get key/value pair of the options in the specify section
-	 * @param {string} sectionName a section name defined in ini [section name]
+	 * Check an option is exist in the default section
+	 * @param {string} optionName the name defined in ini `option-name = option-value`
+	 * @return {boolean} boolean
+	 */
+	isHaveOptionInDefaultSection(optionName: string): boolean;
+
+	/*
+	 * Get key/value pair of the options in the specify section. If sectionName is null
+	 * then will return the pairs from default section
+	 * @param {string|null} sectionName? a section name defined in ini [section name]
 	 * @return {Array.} an array contain several sub arrays which are composed by optionName,
 	 * optionValue. The returned array looks like [[optionName0, optionValue0], ...]
 	 */
-	items(sectionName: string): Array<Array<any>>;
+	items(sectionName?: string|null): Array<Array<any>>;
 
 	/*
-	 * Get all the option names from the specify section
-	 * @param {string} sectionName a section name defined in ini [section name]
+	 * Get all the option names from the specify section if sectionName is null or empty
+	 * then will return options from the default section
+	 * @param {string|null} sectionName a section name defined in ini [section name]
 	 * @return {Array.} an string array contain all the option names
 	 */
-	options(sectionName: string): Array<string>;
+	options(sectionName?: string|null): Array<string>;
 
 	/*
 	 * Remove the specify option from the section if the option exist then remove it
 	 * and return true else return false
 	 *
-	 * @param {string} sectionName a section name defined in ini [section name]
-	 * @param {string} optionName
-	 * @return, boolean
+	 * @param {string|null} sectionName a section name defined in ini [section name]. if null
+	 * the default section will be used.
+	 * @param {string} optionName, name of the option
+	 * @return, boolean, indicate the operation is success or not
 	 */
-	removeOption(sectionName: string, optionName: string): boolean;
+	removeOption(sectionName: string|null, optionName: string): boolean;
 
 	/*
 	 * Remove the specify section if the section exist then remove it
 	 * and return true else return false
 	 *
-	 * @param {string} sectionName
+	 * @param {string|null} sectionName?, if null or empty the default section will be removed
 	 * @return {boolean}
 	 */
-	removeSection(sectionName: string): boolean;
+	removeSection(sectionName?: string|null): boolean;
 
 	/*
 	 * Get all the section names from the ini content
@@ -130,14 +151,14 @@ export declare class ConfigIniParser {
 
 	/*
 	 * Set a option value, if the option is not exist then it will be added to the section.
-	 * If the section is not exist an errorNoSection will be thrown
-	 * @param {string} sectionName, string
+	 * If the section is not exist an errorNoSection will be thrown.
+	 * @param {string|null} sectionName, string
 	 * @param {string} optionName, string
 	 * @param {string} value, a value should be able to converted to string
 	 * @return {object} parser object itself
 	 */
 	set(
-		sectionName: string,
+		sectionName: string|null,
 		optionName: string,
 		value: string
 	): ConfigIniParser;
