@@ -1,7 +1,7 @@
 {
 	"name": "config-ini-parser",
-	"version": "1.5.1",
-	"description": "JavaScript Configuration file(.ini) content parser, similar to python ConfigParser without I/O operations",
+	"version": "1.5.2",
+	"description": "JavaScript Configuration file(.ini) content parser, similar to python ConfigParser without I/O operations. Only one JavaScript file without any other dependencies. Compatible with both Node and Browsers.",
 	"main": "config-ini.js",
 	"scripts": {
 		"test": "mocha",

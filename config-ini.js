@@ -4,50 +4,50 @@
  * The license is under GPL-3.0
  * Git repo:https://github.com/shangerxin/config-ini
  * Author homepage: http://www.shangerxin.com
- * Version, 1.5.1
+ * Version, 1.5.2
  */
 
 (function (exports) {
     var error = Object.assign(new Error(), {
-        name   : "ConfigIniParser Error",
-        message: "Parse config ini file error"
+        name: "ConfigIniParser Error",
+        message: "Parse config ini file error",
     });
 
     var errorNoSection = Object.assign(new Error(), {
-        name   : "ConfigIniParser Error",
-        message: "The specify section not found"
+        name: "ConfigIniParser Error",
+        message: "The specify section not found",
     });
 
     var errorNoOption = Object.assign(new Error(), {
-        name   : "ConfigIniParser Error",
-        message: "The specify option not found"
+        name: "ConfigIniParser Error",
+        message: "The specify option not found",
     });
 
     var errorDuplicateSectionError = Object.assign(new Error(), {
-        name   : "ConfigIniParser Error",
-        message: "Found duplicated section in the given ini file"
+        name: "ConfigIniParser Error",
+        message: "Found duplicated section in the given ini file",
     });
 
     var errorCallParseMultipleTimes = Object.assign(new Error(), {
-        name   : "ConfigIniParser Error",
-        message: "Multiple call parse on the same parser instance"
+        name: "ConfigIniParser Error",
+        message: "Multiple call parse on the same parser instance",
     });
 
     var errorIncorrectArgumentType = Object.assign(new TypeError(), {
-        name : "ConfigIniParser Error",
-        message: "The argument type is not correct"
+        name: "ConfigIniParser Error",
+        message: "The argument type is not correct",
     });
 
-    var DEFAULT_SECTION    = "__DEFAULT_SECTION__";
-    var _sectionRegex      = /^\s*\[\s*([^\]]+?)\s*\]\s*$/;
-    var _optionRegex       = /\s*([^=:\s]+)\s*[=:]\s*(.*)\s*/;
-    var _commentRegex      = /^\s*[#;].*/;
-    var _emptyRegex        = /^\s*$/;
+    var DEFAULT_SECTION = "__DEFAULT_SECTION__";
+    var _sectionRegex = /^\s*\[\s*([^\]]+?)\s*\]\s*$/;
+    var _optionRegex = /\s*([^=:\s]+)\s*[=:]\s*(.*)\s*/;
+    var _commentRegex = /^\s*[#;].*/;
+    var _emptyRegex = /^\s*$/;
     var SECTION_NAME_INDEX = 1;
-    var OPTION_NAME_INDEX  = 1;
+    var OPTION_NAME_INDEX = 1;
     var OPTION_VALUE_INDEX = 2;
-    var NOT_FOUND          = -1;
-    var DEFAULT_DELIMITER  = "\n";
+    var NOT_FOUND = -1;
+    var DEFAULT_DELIMITER = "\n";
 
     function _findSection(iniStructure, sectionName) {
         var sections = iniStructure.sections;
@@ -95,15 +95,15 @@
 
     function _createSection(name) {
         return {
-            name   : name,
-            options: []
+            name: name,
+            options: [],
         };
     }
 
     function _createOption(name, value) {
         return {
-            name : name,
-            value: value
+            name: name,
+            value: value,
         };
     }
 
@@ -139,7 +139,7 @@
          }
          */
         this._ini = {
-            sections: []
+            sections: [],
         };
 
         this._ini.sections.push(_createSection(DEFAULT_SECTION));
@@ -166,7 +166,7 @@
      * @param {string} sectionName the name defined in ini `[section name]`. If null the default
      *      section will be used.
      * @param {string} optionName the name defined in ini `option-name = option-value`
-     * @param {object} defaultValue optional default value to be used when the option does not exist. If it is not provided and the value does not exist, then an exception is thrown.
+     * @param {object} defaultValue optional default value to be used when the option does not exist. If it is not provided and the option value does not exist, then an exception is thrown.
      * @return {string/object} the string value of the option or defaultValue
      */
     ConfigIniParser.prototype.get = function (
@@ -185,10 +185,10 @@
             }
         }
 
-        if (defaultValue) {
-            return defaultValue;
-        } else {
+        if (defaultValue === undefined) {
             throw errorNoOption;
+        } else {
+            return defaultValue;
         }
     };
 
@@ -271,7 +271,7 @@
      * @return {boolean} to indicate the result
      */
     ConfigIniParser.prototype.isHaveSection = function (sectionName) {
-        if(!sectionName){
+        if (!sectionName) {
             throw errorIncorrectArgumentType;
         }
         return !!_findSection(this._ini, sectionName);
@@ -400,7 +400,7 @@
         );
         if (sectionIndex != NOT_FOUND) {
             this._ini.sections.splice(sectionIndex, 1);
-            if (sectionName === DEFAULT_SECTION)         {
+            if (sectionName === DEFAULT_SECTION) {
                 this._ini.sections.push(_createSection(DEFAULT_SECTION));
             }
             return true;
@@ -551,7 +551,7 @@
         ErrorNoOption: errorNoOption,
         ErrorDuplicateSectionError: errorDuplicateSectionError,
         ErrorCallParseMultipleTimes: errorCallParseMultipleTimes,
-        ErrorIncorrectArgumentType: errorIncorrectArgumentType
+        ErrorIncorrectArgumentType: errorIncorrectArgumentType,
     };
 
     exports.ConfigIniParser = ConfigIniParser;
