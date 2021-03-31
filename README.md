@@ -1,12 +1,12 @@
 # Introduction for config-ini [![Build Status](https://travis-ci.com/shangerxin/config-ini.svg?branch=master)](https://travis-ci.com/shangerxin/config-ini) [![Coverage Status](https://coveralls.io/repos/github/shangerxin/config-ini/badge.svg?branch=master)](https://coveralls.io/github/shangerxin/config-ini?branch=master) 
 
--   description
+-   ***Description***
     JavaScript Configuration file(.ini) content parser, similar to python ConfigParser without I/O operations. Only one JavaScript file without any other dependencies. Compatible with NodeJS, TypeScript and Browsers.
 
--   created by Erxin,Shang(Edwin)
+-   ***Author*** Erxin(Edwin) Shang
     -   Git repo:[https://github.com/shangerxin/config-ini](https://github.com/shangerxin/config-ini)
     -   Author homepage: [ http://www.shangerxin.com](http://www.shangerxin.com)
-    -   Version, 1.5.8
+    -   Version, 1.5.9
 
 # Install
 
@@ -20,7 +20,7 @@ or
 
 -   If there is no section supplied for the options then a default section will be created
 
-```
+```ini
 optionName0=value0
 optionName2=value2
 
@@ -41,7 +41,7 @@ optionName2=value2
 
 -   For node
 
-```
+```js
 var ConfigIniParser = require("config-ini-parser").ConfigIniParser;
 var delimiter = "\r\n"; //or "\n" for *nux
 
@@ -55,7 +55,7 @@ parser.stringify('\n'); //get all the ini file content as a string
 
 -   For browser, add config-ini.js to html pages
 
-```
+```js
 var delimiter = "\r\n"; //or "\n" for *nux. by default it will use \n
 
 parser = new ConfigIniParser(delimiter); //If don't assign the parameter delimiter then the default value \n will be used
@@ -67,7 +67,7 @@ value = parser.getOptionFromDefaultSection("option"); //access the default secti
 
 -   Reference the config-ini.d.ts file in a typescript file
 
-```
+```ts
 ///<reference path="..\\node_modules\\config-ini-parser\\config-ini.d.ts"/>
 
 const ConfigIniParser = require("config-ini-parser").ConfigIniParser;
@@ -79,14 +79,14 @@ try {
     p.addSection("abc");
 } catch (e) {
     if (e == ConfigIniParser.Errors.ErrorDuplicateSectionError) {
-        console.error("Add duplicated section");
+        console.error("Duplicated section");
     }
 }
 ```
 
 # APIs
 
-```
+```js
 //create a new config ini parser instance, if the delimiter is ignore then '\n' will be used
 ConfigIniParser([delimiter]);
 
@@ -154,7 +154,7 @@ ConfigIniParser([delimiter]);
 
 # Error types
 Defined several kinds of built-in error types
-```
+```js
 ConfigIniParser.Errors.Error;
 ConfigIniParser.Errors.ErrorNoSection;
 ConfigIniParser.Errors.ErrorNoOption;
