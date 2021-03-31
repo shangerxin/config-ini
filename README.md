@@ -1,12 +1,12 @@
 # Introduction for config-ini [![Build Status](https://travis-ci.com/shangerxin/config-ini.svg?branch=master)](https://travis-ci.com/shangerxin/config-ini) [![Coverage Status](https://coveralls.io/repos/github/shangerxin/config-ini/badge.svg?branch=master)](https://coveralls.io/github/shangerxin/config-ini?branch=master) 
 
 -   description
-    JavaScript Configuration file(.ini) content parser, similar to python ConfigParser without I/O operations. Only one JavaScript file without any other dependencies. Compatible with both Node and Browsers.
+    JavaScript Configuration file(.ini) content parser, similar to python ConfigParser without I/O operations. Only one JavaScript file without any other dependencies. Compatible with NodeJS, TypeScript and Browsers.
 
 -   created by Erxin,Shang(Edwin)
     -   Git repo:[https://github.com/shangerxin/config-ini](https://github.com/shangerxin/config-ini)
     -   Author homepage: [ http://www.shangerxin.com](http://www.shangerxin.com)
-    -   Version, 1.5.2
+    -   Version, 1.5.3
 
 # Install
 
@@ -18,7 +18,7 @@ or
 
 # Simple example ini content
 
--   If there is no section supplied for the options then a default section will be used
+-   If there is no section supplied for the options then a default section will be created
 
 ```
 optionName0=value0
@@ -53,7 +53,7 @@ value = parser.getOptionFromDefaultSection("option"); //access the default secti
 parser.stringify('\n'); //get all the ini file content as a string
 ```
 
--   For browser, add config-ini.js to html by script tag
+-   For browser, add config-ini.js to html pages
 
 ```
 var delimiter = "\r\n"; //or "\n" for *nux. by default it will use \n
@@ -65,7 +65,7 @@ value = parser.get(null, "option"); //access the default section
 value = parser.getOptionFromDefaultSection("option"); //access the default section
 ```
 
--   Reference the config-ini.d.ts file in typescript project
+-   Reference the config-ini.d.ts file in a typescript file
 
 ```
 ///<reference path="..\\node_modules\\config-ini-parser\\config-ini.d.ts"/>
@@ -126,6 +126,9 @@ ConfigIniParser([delimiter]);
 //return all the option names under a specify section into an array
 .options(sectionName);
 
+//parse a ini content
+.parse(iniContent);
+
 //remove a specify option from the section if it exist and successful removed then return true, if not exist then return false
 .removeOption(sectionName, optionName);
 
@@ -144,9 +147,6 @@ ConfigIniParser([delimiter]);
 //convert back the configuration content into delimiter separated string, if delimiter is
 //ignore then '\n' will be used
 .stringify([delimiter]);
-
-//parse a ini content
-.parse(iniContent);
 ```
 
 # Error types
