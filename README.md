@@ -6,7 +6,7 @@
 -   created by Erxin,Shang(Edwin)
     -   Git repo:[https://github.com/shangerxin/config-ini](https://github.com/shangerxin/config-ini)
     -   Author homepage: [ http://www.shangerxin.com](http://www.shangerxin.com)
-    -   Version, 1.5.6
+    -   Version, 1.5.8
 
 # Install
 
@@ -133,7 +133,7 @@ ConfigIniParser([delimiter]);
 .removeOption(sectionName, optionName);
 
 //remove a specify option from the default section if it exist and successful removed then return true, if not exist then return false
-removeOptionFromDefaultSection(optionName);
+.removeOptionFromDefaultSection(optionName);
 
 //remove a specify section if it exist and successful removed then return true, if not exist then return false
 .removeSection(sectionName);
