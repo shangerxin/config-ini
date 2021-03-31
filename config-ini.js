@@ -4,7 +4,7 @@
  * The license is under GPL-3.0
  * Git repo:https://github.com/shangerxin/config-ini
  * Author homepage: http://www.shangerxin.com
- * Version, 1.5.3
+ * Version, 1.5.6
  */
 
 (function (exports) {
@@ -383,6 +383,19 @@
         }
 
         return false;
+    };
+
+    /*
+     * Remove the specify option from the default section if the option exist then remove it
+     * and return true else return false.
+     *
+     * @param {string} optionName
+     * @return, boolean
+     */
+    ConfigIniParser.prototype.removeOptionFromDefaultSection = function (
+        optionName
+    ) {
+        return this.removeOption(null, optionName);
     };
 
     /*

@@ -135,6 +135,15 @@ export declare class ConfigIniParser {
 	removeOption(sectionName: string|null, optionName: string): boolean;
 
 	/*
+	 * Remove the specify option from the default section if the option exist then remove it
+	 * and return true else return false
+	 *
+	 * @param {string} optionName, name of the option
+	 * @return, boolean, indicate the operation is success or not
+	 */
+	removeOptionFromDefaultSection(optionName: string): boolean;
+
+	/*
 	 * Remove the specify section if the section exist then remove it
 	 * and return true else return false
 	 *

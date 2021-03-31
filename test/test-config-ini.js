@@ -4,7 +4,7 @@
  * The license is under GPL-3.0
  * Git repo:https://github.com/shangerxin/config-ini
  * Author homepage: http://www.shangerxin.com
- * Version, 1.5.3
+ * Version, 1.5.6
  */
 var ConfigIniParser = require("../config-ini").ConfigIniParser;
 var expect = require("chai").expect;
@@ -183,6 +183,13 @@ describe("test-config-ini suite", function(){
 
         parser.removeOption(null, "scope");
         expect(parser.isHaveOption(null, "scope")).to.be.false;
+    });
+
+    it("removeOptionFromDefaultSection", function () {
+        expect(parser.isHaveOptionInDefaultSection("scope")).to.be.true;
+        expect(parser.removeOptionFromDefaultSection("scope")).to.be.true;
+        expect(parser.isHaveOptionInDefaultSection("scope")).to.be.false;
+        expect(parser.removeOptionFromDefaultSection("not-exist")).to.be.false;
     });
 
     it("removeSection", function(){
