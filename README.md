@@ -6,7 +6,7 @@
 -   ***Author*** Erxin(Edwin) Shang
     -   Git repo:[https://github.com/shangerxin/config-ini](https://github.com/shangerxin/config-ini)
     -   Author homepage: [ http://www.shangerxin.com](http://www.shangerxin.com)
-    -   Version, 1.6.0
+    -   Version, 1.6.1
 
 # Install
 
@@ -46,6 +46,7 @@ var ConfigIniParser = require("config-ini-parser").ConfigIniParser;
 parser = new ConfigIniParser(); //Use default delimiter
 parser.parse(iniContent);
 var value = parser.get("section", "option");
+parser.stringify('\n');
 ```
 
 ```js
@@ -61,6 +62,14 @@ parser.stringify('\n'); //get all the ini file content as a string
 ```
 
 -   For browser, add config-ini.js to html pages
+
+```js
+var ConfigIniParser = require("config-ini-parser").ConfigIniParser;
+parser = new ConfigIniParser(); //Use default delimiter
+parser.parse(iniContent);
+var value = parser.get("section", "option");
+parser.stringify('\r\n');
+```
 
 ```js
 var delimiter = "\r\n"; //or "\n" for *nux. by default it will use \n
