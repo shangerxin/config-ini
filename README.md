@@ -6,7 +6,7 @@
 -   ***Author*** Erxin(Edwin) Shang
     -   Git repo:[https://github.com/shangerxin/config-ini](https://github.com/shangerxin/config-ini)
     -   Author homepage: [ http://www.shangerxin.com](http://www.shangerxin.com)
-    -   Version, 1.5.9
+    -   Version, 1.6.0
 
 # Install
 
@@ -40,6 +40,13 @@ optionName2=value2
 # Use cases
 
 -   For node
+
+```js
+var ConfigIniParser = require("config-ini-parser").ConfigIniParser;
+parser = new ConfigIniParser(); //Use default delimiter
+parser.parse(iniContent);
+var value = parser.get("section", "option");
+```
 
 ```js
 var ConfigIniParser = require("config-ini-parser").ConfigIniParser;

@@ -4,7 +4,7 @@
  * The license is under GPL-3.0
  * Git repo:https://github.com/shangerxin/config-ini
  * Author homepage: http://www.shangerxin.com
- * Version, 1.5.9
+ * Version, 1.6.0
  */
 var ConfigIniParser = require("../config-ini").ConfigIniParser;
 var expect = require("chai").expect;
@@ -47,5 +47,37 @@ describe("test-config-ini suite", function () {
 
         parser.setOptionInDefaultSection("new-added", 1233);
         expect(parser.get(null, "new-added")).to.be.equal(1233);
+    });
+
+    it("Parse empty value", function(){
+        parser.parse("ABC=");
+        expect(parser.get(null, "ABC")).to.be.equal("");
+    });
+
+    it("Parse invalid option without equal", function(){
+        expect(function(){parser.parse("ABC")}).to.throw(ConfigIniParser.error);
+    });
+
+    it("Mixed different delimiters", function(){
+        var initContent =  [
+            "[section name with spaces]\r\n",
+            "var = 1\r\n",
+            "[ section_name_with_prefix_space]\n",
+            "var = 2\n",
+            "[section_name(*1%with_suffix_space ]\n",
+            "var = 3\r\n",
+            "[ section name with prefix and suffix spaces ]\r\n",
+            "var = true\n",
+            "\n",
+        ].join("");
+
+        parser.parse(
+            initContent
+        );
+
+        expect(parser.get("section name with spaces", "var")).to.be.equal("1");
+        expect(parser.get("section_name_with_prefix_space", "var")).to.be.equal("2");
+        expect(parser.getNumber("section_name(*1%with_suffix_space", "var")).to.be.equal(3);
+        expect(parser.getBoolean("section name with prefix and suffix spaces", "var")).to.be.equal(true);
     });
 });
