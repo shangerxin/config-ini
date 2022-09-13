@@ -55,7 +55,7 @@ describe("test-config-ini suite", function () {
     });
 
     it("Parse invalid option without equal", function(){
-        expect(function(){parser.parse("ABC")}).to.throw(ConfigIniParser.error);
+        expect(function(){parser.parse("ABC")}).to.throw(ConfigIniParser.Errors.Error);
     });
 
     it("Mixed different delimiters", function(){
